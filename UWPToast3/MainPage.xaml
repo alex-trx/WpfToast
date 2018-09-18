@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="UWPToast3.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPToast3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBox Name="boxText" Background="Red" Margin="35,28,0,10" TextWrapping="Wrap" Text="" HorizontalAlignment="Left" Width="847"/>
+        <Button Content="Button" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Button_Click_1" Margin="0,10,10,0" Width="313" Height="185"/>
+
+    </Grid>
+</Page>

@@ -21,6 +21,7 @@ using Windows.UI.Notifications.Management;
 using Dcolor = System.Drawing.Color;
 using Mcolor = System.Windows.Media.Color;
 using System.Threading;
+using System.Diagnostics;
 
 [assembly: DisableDpiAwareness]
 
@@ -44,6 +45,7 @@ namespace WpfToast
         private string state = "";
         private Dcolor stateColor = Dcolor.White;
         private int windowCounter = 1;
+        private bool toastsClosing = false;
 
         public MainWindow()
         {
@@ -51,6 +53,8 @@ namespace WpfToast
 
             //UserNotificationListener listener = UserNotificationListener.Current;
 
+            this.Opacity = 0;
+            this.Visibility = Visibility.Hidden;
             this.Top = 200;
             //this.Left = (1706 / 2) - (this.Width / 2);
             this.Left = 1706 + (1920 / 144 * 96);
@@ -67,6 +71,7 @@ namespace WpfToast
 
             //this.Left = 0;
             string[] args = Environment.GetCommandLineArgs();
+            List<string[]> actions = new List<string[]>();
             if (args.Length >= 2) {
                 this.Hide();
                 //if(args.Length == 2)
@@ -146,6 +151,50 @@ namespace WpfToast
                                     break;
                                 case "-action":
 
+                                case "-actionname":
+                                    if(actions.Count > 0)
+                                    {
+                                        if(actions[actions.Count - 1][0] != null && actions[actions.Count - 1][1] == null)
+                                        {
+                                            actions[actions.Count - 1][0] = nextS;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string[] newAction = new string[3];
+                                        newAction[0] = nextS;
+                                        actions.Add(newAction);
+                                    }
+                                    break;
+
+                                case "-actionparams":
+                                    if (!string.IsNullOrEmpty(nextS))
+                                    {
+                                        if(actions != null && actions.Count > 0 && actions[actions.Count - 1][2] == null)
+                                        {
+                                            actions[actions.Count - 1][2] = nextS;
+                                        }
+                                        break;
+                                    }
+                                    break;
+                                case "-actionpath":
+                                    if (!File.Exists(nextS))
+                                    {
+                                        break;
+                                    }
+                                    if (actions.Count > 0)
+                                    {
+                                        if (actions[actions.Count - 1][0] != null && actions[actions.Count - 1][1] == null)
+                                        {
+                                            actions[actions.Count - 1][1] = nextS;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string[] newAction = new string[3];
+                                        newAction[0] = nextS;
+                                        actions.Add(newAction);
+                                    }
                                     break;
                             }
                             i += 1;// only has to count up one more
@@ -224,7 +273,7 @@ namespace WpfToast
                 foreach (var s in screenX)
                 {
                     //Thread thread = new Thread(() =>{
-                        ToastWindow tw = new ToastWindow(this, args[1], windowLeft: s, imgPath: imgPath, additionalMessage: mainMessage, state: state);
+                        ToastWindow tw = new ToastWindow(this, args[1], windowLeft: s, imgPath: imgPath, additionalMessage: mainMessage, state: state, actions: actions);
                         toastWidnows.Add(tw);
                         tw.setColor(stateColor);
                         //tw.Left = System.Windows.SystemParameters.VirtualScreenWidth / 2;
@@ -364,11 +413,21 @@ namespace WpfToast
             this.BeginAnimation(Window.OpacityProperty, windowTransparancyAnimation);
         }
 
-        public void childClosing()
+        public void childClosing(string execute = null, string executeParams = null)
         {
+            if (this.toastsClosing) { return; }
+            this.toastsClosing = true;
             foreach(ToastWindow tw in toastWidnows)
             {
                 tw.MoveOut();
+            }
+            if(execute != null && executeParams == null && File.Exists(execute))
+            {
+                Process.Start(execute);
+            }
+            if (execute != null && executeParams != null && File.Exists(execute))
+            {
+                Process.Start(execute, executeParams);
             }
         }
 

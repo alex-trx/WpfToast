@@ -36,9 +36,14 @@ namespace WpfToast
         private SolidColorBrush accentColorBrush;
         private string state = "";
         private double windowLeft = 0;
+        private List<string[]> actions = null;
 
-        public ToastWindow(MainWindow parentWindow, string mainMessage, string additionalMessage = "", double? windowTop = null, double? windowLeft = null, string imgPath = "", string state = "")
+        public ToastWindow(MainWindow parentWindow, string mainMessage, string additionalMessage = "", double? windowTop = null, 
+            double? windowLeft = null, string imgPath = "", string state = "", List<string[]> actions = null)
         {
+            this.actions = actions;
+            this.Opacity = 0;
+            this.Visibility = Visibility.Hidden;
             //this.Left = windowLeft.GetValueOrDefault();
             this.Left = 4600;
             this.Top = 100;
@@ -198,6 +203,15 @@ namespace WpfToast
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.action1.Opacity = 0;
+            if (actions != null && actions.Count > 0)
+            {
+                if (!string.IsNullOrEmpty(actions[0][0]) && !string.IsNullOrEmpty(actions[0][1]))
+                {
+                    this.action1.Content = actions[0][0];
+                    this.action1.Opacity = 1;
+                }
+            }
             //MessageBox.Show(this.Left.ToString());
             //this.Left = this.windowLeft;
             this.Left = 2565;
@@ -231,6 +245,31 @@ namespace WpfToast
                 //this.Top = 100;
             }
             MoveIn();
+        }
+
+        private void action1_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            string cmd = null;
+            if(this.actions != null && !string.IsNullOrEmpty(this.actions[0][1]))
+            {
+                cmd = this.actions[0][1];
+            }
+            this.parentWindow.childClosing(cmd);
+        }
+
+        private void action1rect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            string cmd = null;
+            string cmdParams = null;
+            if (this.actions != null && !string.IsNullOrEmpty(this.actions[0][1]))
+            {
+                cmd = this.actions[0][1];
+            }
+            if(this.actions != null && !string.IsNullOrEmpty(this.actions[0][2]))
+            {
+                cmdParams = this.actions[0][2];
+            }
+            this.parentWindow.childClosing(cmd, cmdParams);
         }
     }
 }

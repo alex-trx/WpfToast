@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfToast"
         mc:Ignorable="d"
-        Title="ToastWindow" Height="110" Width="525" WindowStyle="None" MouseLeftButtonUp="Window_MouseLeftButtonUp"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown_1" Topmost="True" ContentRendered="Window_ContentRendered"
+        Title="ToastWindow" Height="110" Width="525" WindowStyle="None" 
+        MouseLeftButtonDown="Window_MouseLeftButtonDown_1" Topmost="True" ContentRendered="Window_ContentRendered" MouseLeftButtonUp="Window_MouseLeftButtonUp"
         ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True" ShowInTaskbar="False"
-        RenderOptions.EdgeMode="Aliased" Loaded="Window_Loaded" Visibility="Hidden" Opacity="0">
+        RenderOptions.EdgeMode="Aliased" Loaded="Window_Loaded" Visibility="Visible" Opacity="1">
     <Grid>
         <Grid Margin="0,0,0.333,0">
             <Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Opacity="0.3"
@@ -19,7 +19,7 @@
             <Border Name="border1" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
         CornerRadius="8" BorderBrush="White" Background="#F0F0F0">
             </Border>
-            <Rectangle HorizontalAlignment="Left" Width="525" Fill="#F0F0F0" Stroke="#F0F0F0" Opacity="0">
+            <Rectangle HorizontalAlignment="Left" Width="525" Fill="red" Stroke="#F0F0F0" Opacity="0">
                 <Rectangle.Clip>
                     <RectangleGeometry Rect="0,0,525,100"  RadiusX="20" RadiusY="20"/>
                 </Rectangle.Clip>
@@ -27,6 +27,9 @@
             <Label Name="mainText" Content="Notification Main Text" FontSize="32" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Top" Height="57" Width="418"/>
             <Image Name="notificationImage" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Margin="10,10,0,10" Width="80"/>
             <Label Name="textAdditional" Content="" FontSize="12" HorizontalAlignment="Left" Margin="95,42,0,0" VerticalAlignment="Top" Height="55" Width="418"/>
+            
+            <Label Name="action1" Content="" FontSize="12" MouseRightButtonUp="action1rect_MouseLeftButtonUp" HorizontalAlignment="Left" Margin="456,42,0,0" VerticalAlignment="Top" Height="55" Width="57"/>
+
         </Grid>
     </Grid>
 </Window>

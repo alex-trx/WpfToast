@@ -15,17 +15,17 @@
             </Border>
         </Grid>
         <Grid Margin="1,1,1,2">
-        <Border Name="border1" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
-        CornerRadius="10" BorderBrush="White" Background="#F0F0F0">
-        </Border>
-        <Rectangle HorizontalAlignment="Left" Width="525" Fill="#F0F0F0" Stroke="Black" Opacity="0">
-            <Rectangle.Clip>
-                <RectangleGeometry Rect="0,0,525,100"  RadiusX="20" RadiusY="20"/>
-            </Rectangle.Clip>
-        </Rectangle>
-        <Label Name="mainText" Content="Notification Main Text" FontSize="32" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Top" Height="48" Width="414"/>
-        <Image Name="notificationImage" HorizontalAlignment="Left" Margin="10,10,0,10" Width="80"/>
-        <Label Name="textAdditional" Content="" FontSize="12" HorizontalAlignment="Left" Margin="95,48,0,0" VerticalAlignment="Top" Height="48" Width="414"/>
+            <Border Name="border1" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
+            CornerRadius="10" BorderBrush="White" Background="#F0F0F0">
+            </Border>
+            <Rectangle HorizontalAlignment="Left" Width="525" Fill="#F0F0F0" Stroke="Black" Opacity="0">
+                <Rectangle.Clip>
+                    <RectangleGeometry Rect="0,0,525,100"  RadiusX="20" RadiusY="20"/>
+                </Rectangle.Clip>
+            </Rectangle>
+            <Label Name="mainText" Content="Notification Main Text" FontSize="32" HorizontalAlignment="Left" Margin="95,0,0,0" VerticalAlignment="Top" Height="48" Width="414"/>
+            <Image Name="notificationImage" HorizontalAlignment="Left" Margin="10,10,0,10" Width="80"/>
+            <Label Name="textAdditional" Content="" FontSize="12" HorizontalAlignment="Left" Margin="95,48,0,0" VerticalAlignment="Top" Height="48" Width="414"/>
         </Grid>
     </Grid>
 </Window>

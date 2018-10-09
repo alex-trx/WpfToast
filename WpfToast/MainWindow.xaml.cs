@@ -17,7 +17,6 @@ using System.Windows.Shapes;
 
 using System.Drawing;
 using System.Runtime.InteropServices;
-using Windows.UI.Notifications.Management;
 using Dcolor = System.Drawing.Color;
 using Mcolor = System.Windows.Media.Color;
 using System.Threading;
